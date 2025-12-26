@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ян Непомнящий</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .photo {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .photo img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .info-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .calculator {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+
+        .rating-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .compare-btn {
+            width: 100%;
+            padding: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .compare-btn:hover {
+            background: #2980b9;
+        }
+
+        .player-rating {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+
+        .player-name {
+            font-weight: bold;
+            flex: 2;
+        }
+
+        .rating-value {
+            color: #2c3e50;
+            font-weight: bold;
+            flex: 1;
+            text-align: center;
+        }
+
+        .difference {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            flex: 1;
+            text-align: center;
+        }
+
+        .positive {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .neutral {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .color-controls {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .color-btn {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Flexbox контейнер */
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f7ff;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            gap: 20px;
+            border: 2px solid #3498db;
+        }
+
+        .flex-item {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            max-width: 200px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .flex-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .tournament-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .tournament-year {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .tournament-result {
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        /* Grid контейнер */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 100px);
+            gap: 15px;
+            margin: 20px 0;
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #3498db;
+        }
+
+        .grid-item {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .grid-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .piece-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .piece-name {
+            font-size: 0.9rem;
+        }
+
+        /* Форма обратной связи */
+        .contact-form {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2980b9;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .flex-item {
+                max-width: 100%;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(9, 80px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="main-title">Ян Непомнящий</h1>
+        <div class="subtitle">Российский шахматист, гроссмейстер</div>
+        
+        <div class="color-controls">
+            <h3>Изменить цвет заголовка:</h3>
+            <button class="color-btn" onclick="changeTitleColor('#e74c3c')" style="background: #e74c3c;">Красный</button>
+            <button class="color-btn" onclick="changeTitleColor('#3498db')" style="background: #3498db;">Синий</button>
+            <button class="color-btn" onclick="changeTitleColor('#27ae60')" style="background: #27ae60;">Зеленый</button>
+            <button class="color-btn" onclick="changeTitleColor('#f39c12')" style="background: #f39c12;">Оранжевый</button>
+            <button class="color-btn" onclick="changeTitleColor('#9b59b6')" style="background: #9b59b6;">Фиолетовый</button>
+            <button class="color-btn" onclick="resetTitleColor()" style="background: #2c3e50;">Сбросить</button>
+        </div>
+        
+        <div class="photo">
+            <img src="https://news.store.rambler.ru/img/011a1f66f4a2d0de1e3b3608c792382c?img-format=auto&img-1-resize=height:350,fit:max&img-2-filter=sharpen" alt="Ян Непомнящий">
+        </div>
+        
+        <h2>Биография</h2>
+        <p>Ян Александрович Непомнящий родился 14 июля 1990 года в Брянске. Научился играть в шахматы в 4,5 года. С пяти лет занимался у тренера Валентина Евдокименко.</p>
+        <p>В 2011 году окончил факультет журналистики Российского государственного социального университета в Москве.</p>
+        
+        <div class="info-block">
+            <p><strong>Дата рождения:</strong> 14 июля 1990 года</p>
+            <p><strong>Место рождения:</strong> Брянск, Россия</p>
+            <p><strong>Рейтинг Эло:</strong> 2742</p>
+            <p><strong>Звание:</strong> Гроссмейстер</p>
+        </div>
+
+        <!-- Flexbox контейнер -->
+        <h2>Ключевые турниры</h2>
+        <div class="flex-container">
+            <div class="flex-item">
+                <div class="tournament-name">Чемпионат мира</div>
+                <div class="tournament-year">2021, 2023</div>
+                <div class="tournament-result">Финалист</div>
+            </div>
+            <div class="flex-item">
+                <div class="tournament-name">Чемпионат России</div>
+                <div class="tournament-year">2010, 2020</div>
+                <div class="tournament-result">Победитель</div>
+            </div>
+            <div class="flex-item">
+                <div class="tournament-name">Кубок мира</div>
+                <div class="tournament-year">2019</div>
+                <div class="tournament-result">Полуфинал</div>
+            </div>
+        </div>
+
+        <!-- Grid контейнер -->
+        <h2>Шахматные фигуры</h2>
+        <div class="grid-container">
+            <div class="grid-item">
+                <div class="piece-icon">♔</div>
+                <div class="piece-name">Король</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">♕</div>
+                <div class="piece-name">Ферзь</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">♖</div>
+                <div class="piece-name">Ладья</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">♗</div>
+                <div class="piece-name">Слон</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">♘</div>
+                <div class="piece-name">Конь</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">♙</div>
+                <div class="piece-name">Пешка</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">🎯</div>
+                <div class="piece-name">Тактика</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">⚡</div>
+                <div class="piece-name">Блиц</div>
+            </div>
+            <div class="grid-item">
+                <div class="piece-icon">🏆</div>
+                <div class="piece-name">Победа</div>
+            </div>
+        </div>
+
+        <h2>Сравнение рейтинга</h2>
+        <div class="calculator">
+            <input type="number" id="userRating" class="rating-input" placeholder="Введите ваш рейтинг Эло" min="0" max="3000">
+            <button class="compare-btn" onclick="compareRatings()">Сравнить с гроссмейстерами</button>
+            
+            <div id="comparisonResults">
+                <!-- Результаты появятся здесь -->
+            </div>
+        </div>
+        
+        <h2>Шахматная карьера</h2>
+        <p>Ян начал выступать на турнирах в конце 1990-х годов. В 2007 году выполнил норму гроссмейстера и победил на турнире «Юные звёзды мира».</p>
+        <p>Дважды участвовал в матчах за звание чемпиона мира в 2021 и 2023 годах против Магнуса Карлсена.</p>
+        
+        <h2>Достижения</h2>
+        <p>• Двукратный чемпион России (2010, 2020)</p>
+        <p>• Участник матчей за звание чемпиона мира (2021, 2023)</p>
+        <p>• Чемпион мира по блиц-шахматам (2024)</p>
+        <p>• Победитель командного чемпионата мира (2013, 2019)</p>
+        
+        <h2>Киберспорт</h2>
+        <p>Ян также известен своей киберспортивной деятельностью. Он играл в Dota 2 и Hearthstone, выиграл ASUS Cup Winter-2011 по Dota 2.</p>
+        <p>Ведет популярные стримы на Twitch, где разбирает шахматные партии и общается с поклонниками.</p>
+
+        <!-- Форма обратной связи в конце сайта -->
+        <h2>Обратная связь</h2>
+        <div class="contact-form">
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label class="form-label" for="name">Ваше имя:</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Введите ваше имя" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email">Ваш Email:</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Введите ваш email" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Отправить сообщение</button>
+            </form>
+            
+            <div id="formMessage" class="message"></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; color: #666; font-size: 14px;">
+            © 2025 Сайт о Яне Непомнящем
+        </div>
+    </div>
+
+    <script>
+        const grandmasters = [
+            { name: "Магнус Карлсен", rating: 2850, country: "Норвегия" },
+            { name: "Хикару Накамура", rating: 2790, country: "США" },
+            { name: "Фабиано Каруана", rating: 2780, country: "Италия" },
+            { name: "Дин Лижэнь", rating: 2760, country: "Китай" },
+            { name: "Ян Непомнящий", rating: 2742, country: "Россия" },
+            { name: "Алиреза Фирузджа", rating: 2720, country: "Франция" },
+            { name: "Аниш Гири", rating: 2700, country: "Нидерланды" }
+        ];
+
+        function changeTitleColor(color) {
+            document.getElementById('main-title').style.color = color;
+        }
+
+        function resetTitleColor() {
+            document.getElementById('main-title').style.color = '#2c3e50';
+        }
+
+        function compareRatings() {
+            const userRating = parseInt(document.getElementById('userRating').value);
+            const resultsContainer = document.getElementById('comparisonResults');
+            
+            if (!userRating || userRating < 0 || userRating > 3000) {
+                alert('Пожалуйста, введите корректный рейтинг (0-3000)');
+                return;
+            }
+
+            let resultsHTML = '';
+            
+            grandmasters.forEach(master => {
+                const difference = userRating - master.rating;
+                let differenceClass = 'neutral';
+                let differenceText = '';
+                
+                if (difference > 0) {
+                    differenceClass = 'positive';
+                    differenceText = `+${difference}`;
+                } else if (difference < 0) {
+                    differenceClass = 'negative';
+                    differenceText = `${difference}`;
+                } else {
+                    differenceText = '0';
+                }
+                
+                resultsHTML += `
+                    <div class="player-rating">
+                        <div class="player-name">${master.name}</div>
+                        <div class="rating-value">${master.rating}</div>
+                        <div class="difference ${differenceClass}">${differenceText}</div>
+                    </div>
+                `;
+            });
+
+            resultsContainer.innerHTML = resultsHTML;
+            
+            // Вывод в консоль
+            console.log('=== СРАВНЕНИЕ РЕЙТИНГОВ ===');
+            console.log(`Ваш рейтинг: ${userRating}`);
+            grandmasters.forEach(master => {
+                const difference = userRating - master.rating;
+                console.log(`${master.name}: ${difference > 0 ? '+' : ''}${difference}`);
+            });
+        }
+
+        // Обработчик формы обратной связи
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+            };
+            
+            // Вывод данных в консоль через fetch
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Данные формы отправлены:', formData);
+                console.log('Ответ сервера:', data);
+                showFormMessage('Сообщение отправлено успешно!', 'success');
+                document.getElementById('feedbackForm').reset();
+            })
+            .catch(error => {
+                console.error('Ошибка при отправке:', error);
+                showFormMessage('Ошибка при отправке сообщения', 'error');
+            });
+        });
+
+        function showFormMessage(text, type) {
+            const messageDiv = document.getElementById('formMessage');
+            messageDiv.textContent = text;
+            messageDiv.className = 'message ' + type;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
